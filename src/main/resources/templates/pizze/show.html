@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/resources :: headTags}"></div>
+    <title>Pizza</title>
+</head>
+
+<body>
+    <header>
+        <div th:replace="~{fragments/navbar :: navbar}"></div>
+    </header>
+    <th:block th:if="${pizza != null}">
+        <th:block
+            th:replace="~{fragments/jumbo :: jumbo(${pizza.getImage()}, ${pizza.getName()}, '', ${pizza.getId()}, false, Pizza)}">
+        </th:block>
+    </th:block>
+
+    <th:block th:unless="${pizza != null}">
+
+        <h1></h1>
+    </th:block>
+
+    <main>
+        <section class="my-5">
+            <div class="container">
+                <div th:if="${pizza != null}" th:object="${pizza}">
+                    <div class="row">
+                        <div class="col">
+                            <img class="w-100 rounded-5" th:src="@{*{getImage()}}" alt="">
+                        </div>
+                        <div class="col">
+                            <h1>[[*{getName()}]]</h1>
+                            <h2 class="badge text-bg-success fs-2 my-4">[[*{getPrice()}]]€</h2>
+                            <p class="fs-4 border rounded-5 p-4">[[*{getDescription()}]]</p>
+                        </div>
+                    </div>
+
+                </div>
+                <div th:unless="${pizza != null}">
+                    <h1>This Pizza is not available</h1>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+
+    <th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+
+</body>
+
+</html>
