@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -34,6 +36,10 @@ public class Promotion {
     @Min(value = 1, message = "discount must be expressend in percentage, so it must be between 1 and 100")
     @Max(value = 100, message = "discount must be expressend in percentage, so it must be between 1 and 100")
     Integer discount;
+
+    @ManyToOne
+    @JoinColumn(name = "pizza_id", nullable = false)
+    private Pizza pizza;
 
     public Promotion() {
     };
@@ -83,6 +89,14 @@ public class Promotion {
 
     public void setDiscount(Integer discount) {
         this.discount = discount;
+    }
+
+    public Pizza getPizza() {
+        return pizza;
+    }
+
+    public void setPizza(Pizza pizza) {
+        this.pizza = pizza;
     }
 
     @Override
