@@ -44,10 +44,10 @@ public class Promotion {
     public Promotion() {
     };
 
-    public Promotion(String title, LocalDate starDate, LocalDate enDate, Integer discount) {
+    public Promotion(String title, LocalDate starDate, LocalDate endDate, Integer discount) {
         this.title = title;
         this.startDate = starDate;
-        this.endDate = enDate;
+        this.endDate = endDate;
         this.discount = discount;
     };
 
