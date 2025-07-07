@@ -30,9 +30,11 @@ public class Promotion {
     @Size(min = 5, max = 100, message = "Title must be between 5 and 100 characters")
     private String title;
 
+    @NotNull(message = "Start date cannot be null")
     @Future(message = "Start date cannot be in the past")
     private LocalDate startDate;
 
+    @NotNull(message = "End date cannot be null")
     @Future(message = "End date cannot be in the past")
     private LocalDate endDate;
 

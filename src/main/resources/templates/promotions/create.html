@@ -11,12 +11,17 @@
         <div th:replace="~{fragments/navbar :: navbar}"></div>
     </header>
     <div class="container my-5">
-        <h1>Create a promotion for the pizza: [[${promotion.getPizza().getName()}]]</h1>
+        <h1 th:unless="${edit}">Create a promotion for the pizza: [[${promotion.getPizza().getName()}]]</h1>
+        <h1 th:if="${edit}">Update the "[[${promotion.getTitle()}]]" promotion for the pizza:
+            [[${promotion.getPizza().getName()}]]</h1>
+
         <div th:if="${errorMessage}" class="text-center">
             <p class="alert alert-warning">[[${errorMessage}]]</p>
         </div>
-        <form th:action="@{/promotions/create}" method="POST" th:object="${promotion}">
+        <form th:action="${edit} ? @{/promotions/update} : @{/promotions/create}" method="POST"
+            th:object="${promotion}">
 
+            <input type="hidden" th:field="*{id}">
             <input type="hidden" th:field="*{pizza}">
 
             <!-- name  -->
@@ -51,8 +56,8 @@
             <!-- start date  -->
             <div class="mb-3">
                 <label for="" class="form-label">Start date</label>
-                <input th:field="*{startDate}" type="date" class="form-control" name="" id="" aria-describedby="helpId"
-                    placeholder="" th:errorClass="is-invalid" />
+                <input th:field="*{startDate}" value="*{startDate}" type="date" class="form-control" name="" id=""
+                    aria-describedby="helpId" placeholder="" th:errorClass="is-invalid" />
                 <small th:unless="${#fields.hasErrors('startDate')}" id="helpId" class="form-text text-muted">Insert the
                     start date
                     of

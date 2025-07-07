@@ -69,8 +69,41 @@
                             <td>
                                 <a th:href="@{/promotions/{id}/edit(id = *{getId()})}" class="btn btn-primary"><i
                                         class="bi bi-pencil-fill"></i></a>
-                                <a th:href="@{/promotions/{id}/delete(id = *{getId()})}" class="btn btn-danger"><i
-                                        class="bi bi-trash-fill"></i></a>
+                                <!-- Button trigger modal -->
+                                <div class="col">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        th:data-bs-target="'#modal-' + *{getId()}">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </div>
+                                <!-- Modal -->
+                                <div class="modal fade" th:id="'modal-' + *{getId()}" tabindex="-1"
+                                    aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="modalLabel">Confirm deleting
+                                                    operation</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want
+                                                to delete the promotion: [[*{getTitle()}]]?
+                                                Press delete to confirm, press close to exit without confirming
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                                <form th:action="@{/promotions/{id}/delete(id=*{getId()})}"
+                                                    method="POST">
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
