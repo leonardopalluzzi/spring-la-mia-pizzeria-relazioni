@@ -12,6 +12,9 @@
     </header>
     <div class="container my-5">
         <h1>Create a promotion for the pizza: [[${promotion.getPizza().getName()}]]</h1>
+        <div th:if="${errorMessage}" class="text-center">
+            <p class="alert alert-warning">[[${errorMessage}]]</p>
+        </div>
         <form th:action="@{/promotions/create}" method="POST" th:object="${promotion}">
 
             <input type="hidden" th:field="*{pizza}">
