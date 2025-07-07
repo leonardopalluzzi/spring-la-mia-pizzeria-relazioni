@@ -9,10 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 
 @Entity
@@ -21,21 +25,21 @@ public class Promotion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
     @Size(min = 5, max = 100, message = "Title must be between 5 and 100 characters")
-    String title;
+    private String title;
 
-    @Past(message = "Start date cannot be in the past")
-    LocalDate startDate;
+    @Future(message = "Start date cannot be in the past")
+    private LocalDate startDate;
 
-    @Past(message = "End date cannot be in the past")
-    LocalDate endDate;
+    @Future(message = "End date cannot be in the past")
+    private LocalDate endDate;
 
-    @NotBlank
+    @NotNull(message = "This field cannot be blank")
     @Min(value = 1, message = "discount must be expressend in percentage, so it must be between 1 and 100")
     @Max(value = 100, message = "discount must be expressend in percentage, so it must be between 1 and 100")
-    Integer discount;
+    private Integer discount;
 
     @ManyToOne
     @JoinColumn(name = "pizza_id", nullable = false)

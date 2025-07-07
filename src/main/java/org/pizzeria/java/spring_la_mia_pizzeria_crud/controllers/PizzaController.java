@@ -1,6 +1,7 @@
 package org.pizzeria.java.spring_la_mia_pizzeria_crud.controllers;
 
 import org.pizzeria.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.pizzeria.java.spring_la_mia_pizzeria_crud.model.Promotion;
 import org.pizzeria.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -82,6 +83,16 @@ public class PizzaController {
         Pizza pizza = repo.findById(id).get();
         model.addAttribute("pizza", pizza);
         return "pizze/show";
+    }
+
+    @GetMapping("/promotions/{id}/create")
+    public String create(@PathVariable("id") Integer id, Model model) {
+        Promotion promotion = new Promotion();
+
+        promotion.setPizza(repo.findById(id).get());
+
+        model.addAttribute("promotion", promotion);
+        return "promotions/create";
     }
 
 }
