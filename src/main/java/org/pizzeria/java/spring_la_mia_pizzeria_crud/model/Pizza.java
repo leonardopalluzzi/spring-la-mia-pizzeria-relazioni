@@ -47,7 +47,7 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
     private List<Promotion> promotions;
 
-    @ManyToMany(mappedBy = "ingredients")
+    @ManyToMany(mappedBy = "pizzas")
     private List<Ingredient> ingredients;
 
     public Pizza() {

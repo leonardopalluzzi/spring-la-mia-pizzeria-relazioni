@@ -30,7 +30,7 @@ public class IngredientsController {
 
         model.addAttribute("ingredients", ingredients);
 
-        return "ingredientes/index";
+        return "ingredients/index";
     }
 
     @GetMapping("/create")
@@ -52,7 +52,31 @@ public class IngredientsController {
 
         IngredientRepo.save(ingredient);
 
-        return "redirect:/dashboard";
+        return "redirect:/ingredients";
+    }
+
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable Integer id, Model model) {
+
+        Ingredient ingredient = IngredientRepo.findById(id).get();
+
+        model.addAttribute("ingredient", ingredient);
+        model.addAttribute("edit", true);
+
+        return "ingredients/create";
+    }
+
+    @PostMapping("/update")
+    public String update(@Valid @ModelAttribute("ingredient") Ingredient ingredient, BindingResult bindingResult,
+            Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "ingredients/create";
+        }
+
+        IngredientRepo.save(ingredient);
+
+        return "redirect:/ingredients";
     }
 
     @PostMapping("/{id}/delete")
@@ -62,7 +86,7 @@ public class IngredientsController {
 
         IngredientRepo.delete(ingredient);
 
-        return "redirect:/dashboard";
+        return "redirect:/ingredients";
     }
 
 }
