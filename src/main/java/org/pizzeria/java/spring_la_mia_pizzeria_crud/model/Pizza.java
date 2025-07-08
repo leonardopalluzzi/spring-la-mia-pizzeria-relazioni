@@ -2,13 +2,18 @@ package org.pizzeria.java.spring_la_mia_pizzeria_crud.model;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale.Category;
+
+import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
@@ -42,6 +47,9 @@ public class Pizza {
     @OneToMany(mappedBy = "pizza", cascade = { CascadeType.REMOVE })
     private List<Promotion> promotions;
 
+    @ManyToMany(mappedBy = "ingredients")
+    private List<Ingredient> ingredients;
+
     public Pizza() {
     }
 
@@ -51,6 +59,14 @@ public class Pizza {
         this.description = description;
         this.image = image;
         this.price = price;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 
     public void setDescription(String description) {
