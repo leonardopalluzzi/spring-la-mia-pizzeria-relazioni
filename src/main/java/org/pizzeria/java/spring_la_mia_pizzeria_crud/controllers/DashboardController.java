@@ -1,6 +1,7 @@
 package org.pizzeria.java.spring_la_mia_pizzeria_crud.controllers;
 
 import org.pizzeria.java.spring_la_mia_pizzeria_crud.model.Pizza;
+import org.pizzeria.java.spring_la_mia_pizzeria_crud.repo.IngredientsRepository;
 import org.pizzeria.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,9 @@ public class DashboardController {
 
     @Autowired
     PizzaRepository repo;
+
+    @Autowired
+    IngredientsRepository ingredientRepo;
 
     @GetMapping
     public String dashboard(Model model, @RequestParam(name = "page", required = false) Integer page,
@@ -88,6 +92,7 @@ public class DashboardController {
 
         model.addAttribute("endpoint", endpoint);
         model.addAttribute("pizza", new Pizza());
+        model.addAttribute("ingredients", ingredientRepo.findAll());
         return "pizze/create";
     }
 
@@ -95,6 +100,8 @@ public class DashboardController {
     public String store(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepo.findAll());
+
             return "pizze/create";
         }
 
@@ -109,6 +116,7 @@ public class DashboardController {
 
         model.addAttribute("pizza", repo.findById(id).get());
         model.addAttribute("endpoint", endpoint);
+        model.addAttribute("ingredients", ingredientRepo.findAll());
 
         return "pizze/edit";
     }
@@ -117,6 +125,8 @@ public class DashboardController {
     public String update(@Valid @ModelAttribute("pizza") Pizza pizza, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("ingredients", ingredientRepo.findAll());
+
             return "pizze/edit";
         }
 
