@@ -4,6 +4,9 @@
 <th:block th:fragment="pizzaForm(pizza, endpoint)">
     <form th:action="@{${endpoint}}" method="POST" th:object="${pizza}">
 
+        <input type="hidden" th:field="*{id}">
+
+        <!-- ingredients  -->
         <ul class="list-unstyled">
             <li th:each="ingredient : ${ingredients}" th:object="${ingredient}">
                 <div class="form-check">
