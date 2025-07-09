@@ -2,9 +2,6 @@ package org.pizzeria.java.spring_la_mia_pizzeria_crud.model;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Locale.Category;
-
-import org.hibernate.annotations.ManyToAny;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
